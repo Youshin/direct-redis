@@ -7,7 +7,13 @@ of complex data types.
 """
 
 from typing import Any, Dict, List, Optional, Union
-from redis import Redis
+
+try:
+    from redis import Redis
+except ImportError:
+    raise ImportError(
+        "Redis is not installed. Please install it using pip install redis"
+    )
 from direct_redis.functions import (
     convert_set_type,
     convert_set_mapping_dic,
@@ -26,13 +32,11 @@ class DirectRedis(Redis):
 
     def keys(self, pattern: str = "*", **kwargs: Any) -> List[str]:
         """Get all keys matching pattern."""
-        # kwargs를 추가하여 variadic arguments를 처리합니다.
         encoded = super().keys(pattern, **kwargs)
         return [convert_get_type(key, pickle_first=False) for key in encoded or []]
 
     def randomkey(self, **kwargs: Any) -> Optional[str]:
         """Return a random key from the keyspace."""
-        # kwargs를 추가하여 variadic arguments를 처리합니다.
         encoded = super().randomkey(**kwargs)
         return convert_get_type(encoded, pickle_first=False)
 
@@ -89,7 +93,8 @@ class DirectRedis(Redis):
         return super().hset(name, key, convert_set_type(value))
 
     def hmset(self, name: str, mapping: Dict[str, Any]) -> bool:
-        """Set key to value within hash ``name`` for each corresponding key and value from the ``mapping`` dict."""
+        """Set key to value within hash ``name``
+        for each corresponding key and value from the ``mapping`` dict."""
         if not isinstance(mapping, dict):
             raise ValueError("mapping must be a python dictionary")
         mapping = convert_set_mapping_dic(mapping)
