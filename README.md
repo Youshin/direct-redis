@@ -1,6 +1,5 @@
 # Direct-Redis
-* Serialize any python datatypes and executes redis commands using redis-py
-* When loading, it auutomatically converts serialized data into original data types 
+Forked from [direct-redis](https://github.com/yonghee12/direct-redis)
 
 ## Getting Started
 
@@ -155,10 +154,3 @@ array([[0.25873887, 0.00937433],
 >>> type(r.get('a'))
 <class 'numpy.ndarray'>
 ```
-
-# Author
-`direct-redis` is developed and maintained by Yonghee Cheon (yonghee.cheon@gmail.com).      
-It can be found here: https://github.com/yonghee12/direct-redis
-
-Special thanks to:
-* Andy McCurdy, the author of redis-py.
