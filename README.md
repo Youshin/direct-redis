@@ -3,9 +3,6 @@ Forked from [direct-redis](https://github.com/yonghee12/direct-redis)
 
 ## Getting Started
 
-### Install via pypi
-`pip install direct-redis`
-
 ### Instantiate 
 ```python
 from direct_redis import DirectRedis
